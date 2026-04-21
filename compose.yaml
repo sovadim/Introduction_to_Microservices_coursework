@@ -1,6 +1,6 @@
 services:
   resource-db:
-    image: postgres:16-alpine
+    image: postgres:17-alpine
     environment:
       POSTGRES_DB: resourcedb
       POSTGRES_USER: pguser
@@ -9,7 +9,7 @@ services:
       - "5432:5432"
 
   song-db:
-    image: postgres:16-alpine
+    image: postgres:17-alpine
     environment:
       POSTGRES_DB: songdb
       POSTGRES_USER: pguser

@@ -64,7 +64,7 @@ public class ResourceService {
     @Transactional
     public DeletedIdsDto delete(String idsCsv) {
         if (idsCsv.length() > 200) {
-            throw new InvalidRequestException("CSV string length must not exceed 200 characters");
+            throw new InvalidRequestException("CSV string is too long: received " + idsCsv.length() + " characters, maximum allowed is 200");
         }
         List<Integer> ids = parseIds(idsCsv);
         List<Integer> existingIds = resourceRepository.findAllById(ids)

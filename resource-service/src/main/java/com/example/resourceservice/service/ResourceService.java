@@ -36,7 +36,7 @@ public class ResourceService {
             throw new InvalidMp3Exception("Request body is empty or missing");
         }
         if (!metadataExtractor.isValidMp3(data)) {
-            throw new InvalidMp3Exception("The provided file is not a valid MP3");
+            throw new InvalidMp3Exception("Invalid file format: application/json. Only MP3 files are allowed");
         }
 
         SongMetadataDto songMetadata = metadataExtractor.extract(data);
@@ -54,7 +54,7 @@ public class ResourceService {
     @Transactional(readOnly = true)
     public byte[] get(Integer id) {
         if (id <= 0) {
-            throw new InvalidRequestException("ID must be a positive integer");
+            throw new InvalidRequestException("Invalid value '" + id + "' for ID. Must be a positive integer");
         }
         return resourceRepository.findById(id)
                 .map(Resource::getData)
@@ -64,7 +64,7 @@ public class ResourceService {
     @Transactional
     public DeletedIdsDto delete(String idsCsv) {
         if (idsCsv.length() > 200) {
-            throw new InvalidRequestException("CSV string length must not exceed 200 characters");
+            throw new InvalidRequestException("CSV string is too long: received " + idsCsv.length() + " characters, maximum allowed is 200");
         }
         List<Integer> ids = parseIds(idsCsv);
         List<Integer> existingIds = resourceRepository.findAllById(ids)
@@ -72,6 +72,7 @@ public class ResourceService {
                 .map(Resource::getId)
                 .toList();
         resourceRepository.deleteAllById(existingIds);
+        songServiceClient.deleteSongs(existingIds);
         return new DeletedIdsDto(existingIds);
     }
 
@@ -85,11 +86,11 @@ public class ResourceService {
             try {
                 int id = Integer.parseInt(trimmed);
                 if (id <= 0) {
-                    throw new InvalidRequestException("ID must be a positive integer: " + trimmed);
+                    throw new InvalidRequestException("Invalid ID format: '" + trimmed + "'. Only positive integers are allowed");
                 }
                 ids.add(id);
             } catch (NumberFormatException e) {
-                throw new InvalidRequestException("Invalid ID value: " + trimmed);
+                throw new InvalidRequestException("Invalid ID format: '" + trimmed + "'. Only positive integers are allowed");
             }
         }
         return ids;

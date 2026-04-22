@@ -26,7 +26,7 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(MethodArgumentTypeMismatchException.class)
     public ResponseEntity<ErrorResponse> handleTypeMismatch(MethodArgumentTypeMismatchException e) {
         return ResponseEntity.badRequest()
-                .body(new ErrorResponse("Invalid ID: must be a positive integer", "400"));
+                .body(new ErrorResponse("Invalid value '" + e.getValue() + "' for ID. Must be a positive integer", "400"));
     }
 
     @ExceptionHandler(MissingServletRequestParameterException.class)

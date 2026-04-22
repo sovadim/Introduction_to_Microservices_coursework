@@ -1,6 +1,5 @@
 package com.example.songservice.dto;
 
-import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Positive;
@@ -12,23 +11,23 @@ public class SongRequestDto {
     @Positive(message = "ID must be a positive number")
     private Integer id;
 
-    @NotBlank(message = "Name is required")
-    @Size(max = 100, message = "Name must not exceed 100 characters")
+    @NotNull(message = "Song name is required")
+    @Size(min = 1, max = 100, message = "Song name must be between 1 and 100 characters")
     private String name;
 
-    @NotBlank(message = "Artist is required")
-    @Size(max = 100, message = "Artist must not exceed 100 characters")
+    @NotNull(message = "Artist name is required")
+    @Size(min = 1, max = 100, message = "Artist name must be between 1 and 100 characters")
     private String artist;
 
-    @NotBlank(message = "Album is required")
-    @Size(max = 100, message = "Album must not exceed 100 characters")
+    @NotNull(message = "Album name is required")
+    @Size(min = 1, max = 100, message = "Album name must be between 1 and 100 characters")
     private String album;
 
-    @NotBlank(message = "Duration is required")
-    @Pattern(regexp = "^\\d{2}:\\d{2}$", message = "Duration must be in mm:ss format with leading zeros")
+    @NotNull(message = "Duration is required")
+    @Pattern(regexp = "^\\d{2}:[0-5]\\d$", message = "Duration must be in mm:ss format with leading zeros")
     private String duration;
 
-    @NotBlank(message = "Year is required")
+    @NotNull(message = "Year is required")
     @Pattern(regexp = "^(19|20)\\d{2}$", message = "Year must be between 1900 and 2099")
     private String year;
 

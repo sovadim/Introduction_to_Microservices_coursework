@@ -12,7 +12,7 @@ public class SongRequestDto {
     @Positive(message = "ID must be a positive number")
     private Integer id;
 
-    @NotBlank(message = "Name is required")
+    @NotBlank(message = "Song name is required")
     @Size(max = 100, message = "Name must not exceed 100 characters")
     private String name;
 

@@ -3,18 +3,16 @@ package com.example.resourceservice.controller;
 import com.example.resourceservice.dto.DeletedIdsDto;
 import com.example.resourceservice.dto.ResourceIdDto;
 import com.example.resourceservice.service.ResourceService;
-import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-
-import java.io.IOException;
 
 @RestController
 @RequestMapping("/resources")
@@ -27,13 +25,7 @@ public class ResourceController {
     }
 
     @PostMapping
-    public ResponseEntity<ResourceIdDto> upload(HttpServletRequest request) {
-        byte[] data;
-        try {
-            data = request.getInputStream().readAllBytes();
-        } catch (IOException e) {
-            throw new RuntimeException("Failed to read request body", e);
-        }
+    public ResponseEntity<ResourceIdDto> upload(@RequestBody byte[] data) {
         return ResponseEntity.ok(resourceService.upload(data));
     }
 

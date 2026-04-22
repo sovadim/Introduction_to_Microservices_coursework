@@ -36,7 +36,7 @@ public class ResourceService {
             throw new InvalidMp3Exception("Request body is empty or missing");
         }
         if (!metadataExtractor.isValidMp3(data)) {
-            throw new InvalidMp3Exception("The provided file is not a valid MP3");
+            throw new InvalidMp3Exception("Invalid file format: application/json. Only MP3 files are allowed");
         }
 
         SongMetadataDto songMetadata = metadataExtractor.extract(data);

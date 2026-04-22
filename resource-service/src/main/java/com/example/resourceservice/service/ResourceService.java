@@ -72,6 +72,7 @@ public class ResourceService {
                 .map(Resource::getId)
                 .toList();
         resourceRepository.deleteAllById(existingIds);
+        songServiceClient.deleteSongs(existingIds);
         return new DeletedIdsDto(existingIds);
     }
 

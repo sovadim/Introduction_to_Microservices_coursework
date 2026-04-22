@@ -54,7 +54,7 @@ public class ResourceService {
     @Transactional(readOnly = true)
     public byte[] get(Integer id) {
         if (id <= 0) {
-            throw new InvalidRequestException("ID must be a positive integer");
+            throw new InvalidRequestException("Invalid value '" + id + "' for ID. Must be a positive integer");
         }
         return resourceRepository.findById(id)
                 .map(Resource::getData)
@@ -85,11 +85,11 @@ public class ResourceService {
             try {
                 int id = Integer.parseInt(trimmed);
                 if (id <= 0) {
-                    throw new InvalidRequestException("ID must be a positive integer: " + trimmed);
+                    throw new InvalidRequestException("Invalid ID format: '" + trimmed + "'. Only positive integers are allowed");
                 }
                 ids.add(id);
             } catch (NumberFormatException e) {
-                throw new InvalidRequestException("Invalid ID value: " + trimmed);
+                throw new InvalidRequestException("Invalid ID format: '" + trimmed + "'. Only positive integers are allowed");
             }
         }
         return ids;

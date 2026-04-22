@@ -37,7 +37,7 @@ public class SongService {
     @Transactional(readOnly = true)
     public SongResponseDto get(Integer id) {
         if (id <= 0) {
-            throw new InvalidRequestException("ID must be a positive integer");
+            throw new InvalidRequestException("Invalid value '" + id + "' for ID. Must be a positive integer");
         }
         Song song = songRepository.findById(id)
                 .orElseThrow(() -> new SongNotFoundException("Song metadata for ID=" + id + " not found"));
@@ -90,11 +90,11 @@ public class SongService {
             try {
                 int id = Integer.parseInt(trimmed);
                 if (id <= 0) {
-                    throw new InvalidRequestException("ID must be a positive integer: " + trimmed);
+                    throw new InvalidRequestException("Invalid ID format: '" + trimmed + "'. Only positive integers are allowed");
                 }
                 ids.add(id);
             } catch (NumberFormatException e) {
-                throw new InvalidRequestException("Invalid ID value: " + trimmed);
+                throw new InvalidRequestException("Invalid ID format: '" + trimmed + "'. Only positive integers are allowed");
             }
         }
         return ids;

@@ -27,7 +27,7 @@ public class SongService {
     @Transactional
     public SongIdDto create(SongRequestDto dto) {
         if (songRepository.existsById(dto.getId())) {
-            throw new SongAlreadyExistsException("Song metadata with ID=" + dto.getId() + " already exists");
+            throw new SongAlreadyExistsException("Metadata for resource ID=" + dto.getId() + " already exists");
         }
         Song song = toEntity(dto);
         songRepository.save(song);

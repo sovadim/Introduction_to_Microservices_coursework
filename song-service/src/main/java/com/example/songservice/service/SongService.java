@@ -40,7 +40,7 @@ public class SongService {
             throw new InvalidRequestException("ID must be a positive integer");
         }
         Song song = songRepository.findById(id)
-                .orElseThrow(() -> new SongNotFoundException("Song metadata with ID=" + id + " not found"));
+                .orElseThrow(() -> new SongNotFoundException("Song metadata for ID=" + id + " not found"));
         return toResponseDto(song);
     }
 

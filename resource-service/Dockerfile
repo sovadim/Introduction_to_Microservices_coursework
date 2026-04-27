@@ -10,6 +10,7 @@ COPY build.gradle .
 COPY settings.gradle .
 COPY resource-service/build.gradle resource-service/
 
+RUN chmod +x gradlew
 RUN ./gradlew :resource-service:dependencies --no-daemon
 
 COPY resource-service/src resource-service/src

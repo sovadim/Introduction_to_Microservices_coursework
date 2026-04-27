@@ -10,6 +10,7 @@ COPY build.gradle .
 COPY settings.gradle .
 COPY song-service/build.gradle song-service/
 
+RUN chmod +x gradlew
 RUN ./gradlew :song-service:dependencies --no-daemon
 
 COPY song-service/src song-service/src

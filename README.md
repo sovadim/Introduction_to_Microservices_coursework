@@ -2,32 +2,14 @@
 
 ## Running locally
 
-1. Start the databases
+### With Docker Compose
 
-From the project root:
-
+Run:
 ```bash
-docker compose up -d
+docker compose up -d --build
 ```
 
-This starts two PostgreSQL containers:
-- `resource-db` on port `5432`
-- `song-db` on port `5433`
-
-2. Run the services
-
-**Resource Service** (port 8081):
-```bash
-./gradlew :resource-service:bootRun
-```
-
-**Song Service** (port 8082):
-```bash
-./gradlew :song-service:bootRun
-```
-
-### 3. Stop the databases
-
+Stop:
 ```bash
 docker compose down
 ```

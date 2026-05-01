@@ -21,6 +21,13 @@ services:
     ports:
       - "5433:5432"
 
+  eureka-server:
+    build:
+      context: .
+      dockerfile: eureka-server/Dockerfile
+    ports:
+      - "8761:8761"
+
   resource-service:
     build:
       context: .
@@ -31,19 +38,20 @@ services:
       SPRING_DATASOURCE_URL: ${RESOURCE_DB_URL}
       SPRING_DATASOURCE_USERNAME: ${RESOURCE_DB_USER}
       SPRING_DATASOURCE_PASSWORD: ${RESOURCE_DB_PASSWORD}
-      SONG_SERVICE_URL: ${SONG_SERVICE_URL}
+      EUREKA_SERVER_URL: ${EUREKA_SERVER_URL}
     depends_on:
       - resource-db
+      - eureka-server
 
   song-service:
     build:
       context: .
       dockerfile: song-service/Dockerfile
-    ports:
-      - "8082:8082"
     environment:
       SPRING_DATASOURCE_URL: ${SONG_DB_URL}
       SPRING_DATASOURCE_USERNAME: ${SONG_DB_USER}
       SPRING_DATASOURCE_PASSWORD: ${SONG_DB_PASSWORD}
+      EUREKA_SERVER_URL: ${EUREKA_SERVER_URL}
     depends_on:
       - song-db
+      - eureka-server

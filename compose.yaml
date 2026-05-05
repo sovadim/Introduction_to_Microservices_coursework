@@ -47,6 +47,12 @@ services:
     build:
       context: .
       dockerfile: song-service/Dockerfile
+#    deploy:
+#      replicas: 2
+#    ports: # For podman
+#      - "8082:8082"
+#    ports: # For docker
+#      - "8082-8083:8082"
     environment:
       SPRING_DATASOURCE_URL: ${SONG_DB_URL}
       SPRING_DATASOURCE_USERNAME: ${SONG_DB_USER}
